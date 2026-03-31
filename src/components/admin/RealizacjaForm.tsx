@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Upload, X, GripVertical } from "lucide-react";
+import { Upload, X, GripVertical, Star } from "lucide-react";
 import Image from "next/image";
 
 interface RealizacjaData {
@@ -51,6 +51,27 @@ export default function RealizacjaForm({ poczatkowe }: Props) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [errorDetails, setErrorDetails] = useState<string[]>([]);
+  const [dragging, setDragging] = useState<number | null>(null);
+  const [dragOver, setDragOver] = useState<number | null>(null);
+
+  function movePhoto(from: number, to: number) {
+    setForm((prev) => {
+      const arr = [...prev.zdjecia];
+      const [removed] = arr.splice(from, 1);
+      arr.splice(to, 0, removed);
+      return { ...prev, zdjecia: arr };
+    });
+  }
+
+  function setMainPhoto(index: number) {
+    if (index === 0) return;
+    setForm((prev) => {
+      const arr = [...prev.zdjecia];
+      const [removed] = arr.splice(index, 1);
+      arr.unshift(removed);
+      return { ...prev, zdjecia: arr };
+    });
+  }
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -295,42 +316,85 @@ export default function RealizacjaForm({ poczatkowe }: Props) {
 
         {/* Podgląd */}
         {form.zdjecia.length > 0 && (
-          <div className="grid grid-cols-3 gap-4">
-            {form.zdjecia.map((url, i) => (
-              <div key={url} className="relative group aspect-[4/3]">
-                <Image
-                  src={url}
-                  alt={`Zdjęcie ${i + 1}`}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <button
-                    type="button"
-                    onClick={() => removeZdjecie(url)}
-                    className="p-2 bg-white rounded-full"
-                    style={{ color: "#e74c3c" }}
-                  >
-                    <X size={14} />
-                  </button>
+          <>
+            <p style={{ fontFamily: "'Helvetica Neue', sans-serif", fontSize: "0.72rem", color: "var(--warm-gray)" }}>
+              Przeciągnij zdjęcia żeby zmienić kolejność. Pierwsze zdjęcie jest okładką.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {form.zdjecia.map((url, i) => (
+                <div
+                  key={url}
+                  draggable
+                  onDragStart={() => setDragging(i)}
+                  onDragOver={(e) => { e.preventDefault(); setDragOver(i); }}
+                  onDrop={() => {
+                    if (dragging !== null && dragging !== i) movePhoto(dragging, i);
+                    setDragging(null);
+                    setDragOver(null);
+                  }}
+                  onDragEnd={() => { setDragging(null); setDragOver(null); }}
+                  className="relative group aspect-[4/3] select-none"
+                  style={{
+                    opacity: dragging === i ? 0.4 : 1,
+                    outline: dragOver === i && dragging !== i ? "2px solid var(--sand)" : "none",
+                    cursor: "grab",
+                    transition: "opacity 0.15s",
+                  }}
+                >
+                  <Image
+                    src={url}
+                    alt={`Zdjęcie ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    draggable={false}
+                  />
+                  {/* Overlay z akcjami */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    {i !== 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setMainPhoto(i)}
+                        className="p-2 bg-white rounded-full"
+                        title="Ustaw jako główne"
+                        style={{ color: "var(--sand-dark)" }}
+                      >
+                        <Star size={13} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => removeZdjecie(url)}
+                      className="p-2 bg-white rounded-full"
+                      title="Usuń"
+                      style={{ color: "#e74c3c" }}
+                    >
+                      <X size={13} />
+                    </button>
+                  </div>
+                  {/* Uchwyt do przeciągania */}
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <GripVertical size={16} style={{ color: "white", filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.8))" }} />
+                  </div>
+                  {/* Badge główne */}
+                  {i === 0 && (
+                    <span
+                      className="absolute top-2 left-2 px-2 py-1 flex items-center gap-1"
+                      style={{
+                        fontFamily: "'Helvetica Neue', sans-serif",
+                        fontSize: "0.6rem",
+                        letterSpacing: "0.1em",
+                        backgroundColor: "var(--charcoal)",
+                        color: "white",
+                      }}
+                    >
+                      <Star size={9} fill="var(--sand)" style={{ color: "var(--sand)" }} />
+                      GŁÓWNE
+                    </span>
+                  )}
                 </div>
-                {i === 0 && (
-                  <span
-                    className="absolute top-2 left-2 px-2 py-1"
-                    style={{
-                      fontFamily: "'Helvetica Neue', sans-serif",
-                      fontSize: "0.6rem",
-                      letterSpacing: "0.1em",
-                      backgroundColor: "var(--charcoal)",
-                      color: "white",
-                    }}
-                  >
-                    GŁÓWNE
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
 
         {/* Upload */}
