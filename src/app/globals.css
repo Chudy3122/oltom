@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --cream: #fafaf8;
+    --linen: #f2ede8;
+    --sand: #c4ad96;
+    --sand-dark: #a8906f;
+    --charcoal: #2a2a2a;
+    --warm-gray: #6b6560;
+    --border: #e0d8d0;
+    --white: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--cream);
+    color: var(--charcoal);
+    font-family: "Georgia", serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Georgia", serif;
+    letter-spacing: 0.02em;
+  }
+
+  p, span, a, li, label, input, textarea, button, select {
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-sand { color: var(--sand); }
+  .text-charcoal { color: var(--charcoal); }
+  .text-warm-gray { color: var(--warm-gray); }
+  .bg-cream { background-color: var(--cream); }
+  .bg-linen { background-color: var(--linen); }
+  .bg-sand { background-color: var(--sand); }
+  .bg-charcoal { background-color: var(--charcoal); }
+  .border-sand { border-color: var(--sand); }
+  .border-border { border-color: var(--border); }
+
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .container-narrow {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .heading-xl {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 300;
+  }
+
+  .heading-lg {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.2;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  .heading-sm {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", sans-serif;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.875rem 2.5rem;
+    background-color: var(--charcoal);
+    color: white;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-family: "Helvetica Neue", sans-serif;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--sand-dark);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.875rem 2.5rem;
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: "Helvetica Neue", sans-serif;
+  }
+
+  .btn-outline:hover {
+    background-color: var(--charcoal);
+    color: white;
+  }
+
+  .divider {
+    width: 3rem;
+    height: 1px;
+    background-color: var(--sand);
+    margin: 1.5rem 0;
+  }
+
+  .input-base {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background-color: white;
+    border: 1px solid var(--border);
+    color: var(--charcoal);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    font-family: "Helvetica Neue", sans-serif;
+  }
+
+  .input-base:focus {
+    border-color: var(--sand);
+  }
+
+  .input-base::placeholder {
+    color: #b0a89e;
+  }
 }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--sand); }
+::-webkit-scrollbar-thumb:hover { background: var(--sand-dark); }

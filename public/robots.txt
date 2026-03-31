@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /wnetrza-studio/
+
+Sitemap: https://oltom.pl/sitemap.xml

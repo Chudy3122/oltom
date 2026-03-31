@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Realizacja {
+  id           Int      @id @default(autoincrement())
+  slug         String   @unique
+  tytul        String
+  opis         String
+  opisKrotki   String
+  powierzchnia Int?
+  lokalizacja  String?
+  rok          Int?
+  kategoria    String   @default("mieszkanie")
+  zdjecia      String
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  opinie       Opinia[]
+}
+
+model Opinia {
+  id           Int        @id @default(autoincrement())
+  realizacjaId Int
+  realizacja   Realizacja @relation(fields: [realizacjaId], references: [id], onDelete: Cascade)
+  autor        String
+  tresc        String
+  ocena        Int        @default(5)
+  zatwierdzona Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  haslo     String
+  createdAt DateTime @default(now())
+}
