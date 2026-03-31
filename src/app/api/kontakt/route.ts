@@ -3,11 +3,11 @@ import { z } from "zod";
 import nodemailer from "nodemailer";
 
 const schema = z.object({
-  imie: z.string().min(2).max(100),
+  imie: z.string().min(1).max(100),
   email: z.string().email().max(200),
   telefon: z.string().max(30).optional(),
   temat: z.string().max(50),
-  wiadomosc: z.string().min(5).max(2000),
+  wiadomosc: z.string().min(1).max(2000),
 });
 
 const tematy: Record<string, string> = {
