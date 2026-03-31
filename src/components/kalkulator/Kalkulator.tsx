@@ -163,7 +163,7 @@ export default function Kalkulator() {
                         marginTop: "1rem",
                       }}
                     >
-                      {p.cenaM2} zł / m²
+                      {Math.round(p.cenaM2 * wybranyTyp.mnoznik)} zł / m²
                     </p>
                     {/* Co zawiera */}
                     <ul className="mt-4 flex flex-col gap-1">
