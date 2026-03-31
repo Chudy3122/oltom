@@ -33,7 +33,7 @@ export default async function AdminRealizacjePage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <h1
           style={{
             fontFamily: "Georgia, serif",
@@ -76,9 +76,10 @@ export default async function AdminRealizacjePage() {
           style={{
             backgroundColor: "white",
             border: "1px solid var(--border)",
+            overflowX: "auto",
           }}
         >
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "600px" }}>
             <thead>
               <tr style={{ borderBottom: "1px solid var(--border)" }}>
                 {["Tytuł", "Kategoria", "Pow.", "Featured", "Data", ""].map(

@@ -4,7 +4,7 @@ export default function About() {
   return (
     <section className="section-padding" style={{ backgroundColor: "white" }}>
       <div className="container-narrow px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Tekst */}
           <div>
             <span className="heading-sm" style={{ color: "var(--sand-dark)" }}>
@@ -45,7 +45,7 @@ export default function About() {
           </div>
 
           {/* Statystyki */}
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-4 md:gap-8">
             {[
               { value: "150+", label: "Zrealizowanych projektów" },
               { value: "8", label: "Lat doświadczenia" },
@@ -54,13 +54,13 @@ export default function About() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="p-8"
+                className="p-4 sm:p-6 md:p-8"
                 style={{ backgroundColor: "var(--linen)" }}
               >
                 <p
                   style={{
                     fontFamily: "Georgia, serif",
-                    fontSize: "2.5rem",
+                    fontSize: "clamp(1.6rem, 4vw, 2.5rem)",
                     fontWeight: 300,
                     color: "var(--charcoal)",
                     lineHeight: 1,

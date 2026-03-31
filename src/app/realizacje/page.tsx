@@ -45,7 +45,7 @@ export default async function RealizacjePage() {
       <main className="flex-1 pt-20">
         {/* Baner */}
         <div
-          className="py-24 px-6 md:px-8"
+          className="py-16 md:py-24 px-6 md:px-8"
           style={{ backgroundColor: "var(--linen)" }}
         >
           <div className="container-narrow">

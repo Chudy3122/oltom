@@ -95,7 +95,7 @@ export default function Kalkulator() {
   return (
     <section className="section-padding" style={{ backgroundColor: "white" }}>
       <div className="container-narrow px-6 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Konfiguracja — lewa kolumna */}
           <div className="lg:col-span-2 flex flex-col gap-12">
             {/* Pakiet */}
@@ -325,7 +325,7 @@ export default function Kalkulator() {
           {/* Wynik — prawa kolumna (sticky) */}
           <div>
             <div
-              className="sticky top-28 p-8"
+              className="lg:sticky lg:top-28 p-5 md:p-8"
               style={{ backgroundColor: "var(--linen)", border: "1px solid var(--border)" }}
             >
               <p className="heading-sm mb-6" style={{ color: "var(--sand-dark)" }}>
@@ -396,7 +396,7 @@ export default function Kalkulator() {
                 <p
                   style={{
                     fontFamily: "Georgia, serif",
-                    fontSize: "2.5rem",
+                    fontSize: "clamp(1.8rem, 4vw, 2.5rem)",
                     fontWeight: 300,
                     color: "var(--charcoal)",
                     lineHeight: 1,

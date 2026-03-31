@@ -31,7 +31,7 @@ export default function KontaktPage() {
     <>
       <Header />
       <main className="flex-1 pt-20">
-        <div className="py-24 px-6 md:px-8" style={{ backgroundColor: "var(--linen)" }}>
+        <div className="py-16 md:py-24 px-6 md:px-8" style={{ backgroundColor: "var(--linen)" }}>
           <div className="container-narrow">
             <span className="heading-sm" style={{ color: "var(--sand-dark)" }}>
               Kontakt
@@ -47,7 +47,7 @@ export default function KontaktPage() {
 
         <section className="section-padding" style={{ backgroundColor: "white" }}>
           <div className="container-narrow px-6 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16">
               {/* Formularz */}
               <div className="lg:col-span-3">
                 <p className="heading-sm mb-6" style={{ color: "var(--sand-dark)" }}>

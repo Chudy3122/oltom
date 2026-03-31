@@ -45,7 +45,7 @@ export default function Services() {
           {services.map((s) => (
             <div
               key={s.nr}
-              className="p-10 group transition-colors duration-300"
+              className="p-6 md:p-10 group transition-colors duration-300"
               style={{ backgroundColor: "white" }}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor = "var(--cream)")

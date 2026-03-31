@@ -51,7 +51,7 @@ export default function Footer() {
       className="mt-auto"
     >
       <div className="container-narrow px-6 md:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Logo + opis */}
           <div className="col-span-1">
             <button

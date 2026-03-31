@@ -72,7 +72,7 @@ export default async function RealizacjaPage({ params }: Props) {
 
         <div className="section-padding">
           <div className="container-narrow px-6 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
               {/* Lewy — opis */}
               <div className="lg:col-span-2">
                 <span
@@ -102,7 +102,7 @@ export default async function RealizacjaPage({ params }: Props) {
 
                 {/* Galeria */}
                 {zdjecia.length > 1 && (
-                  <div className="mt-12 grid grid-cols-2 gap-4">
+                  <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {zdjecia.slice(1).map((src, i) => (
                       <div
                         key={i}
@@ -125,7 +125,7 @@ export default async function RealizacjaPage({ params }: Props) {
               <div>
                 {/* Szczegóły */}
                 <div
-                  className="p-8 mb-8"
+                  className="p-5 md:p-8 mb-8"
                   style={{ backgroundColor: "var(--linen)" }}
                 >
                   <p
