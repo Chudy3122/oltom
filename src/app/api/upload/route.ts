@@ -20,6 +20,11 @@ export async function POST(req: NextRequest) {
   if (file.size > 10 * 1024 * 1024)
     return NextResponse.json({ error: "Plik za duży (max 10MB)" }, { status: 400 });
 
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    console.error("❌ Brak BLOB_READ_WRITE_TOKEN w środowisku");
+    return NextResponse.json({ error: "Brak konfiguracji Blob" }, { status: 500 });
+  }
+
   try {
     const blob = await put(`realizacje/${Date.now()}-${file.name}`, file, {
       access: "public",
@@ -27,7 +32,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: blob.url }, { status: 201 });
   } catch (err) {
-    console.error("❌ Błąd uploadu:", err);
-    return NextResponse.json({ error: "Błąd uploadu" }, { status: 500 });
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("❌ Błąd uploadu:", msg);
+    return NextResponse.json({ error: "Błąd uploadu", details: msg }, { status: 500 });
   }
 }
